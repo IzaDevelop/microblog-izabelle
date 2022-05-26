@@ -39,13 +39,13 @@ $quantidade = count($usuarios)
 						<td> <?=$usuario['tipo']?> </td>
 						<td class="text-center">
 							<a class="btn btn-warning btn-sm" 
-							href="usuario-atualiza.php?=<?=$usuario['id']?>">
+							href="usuario-atualiza.php?id=<?=$usuario['id']?>">
 								Atualizar
 							</a>
 						</td>
 						<td class="text-center">
 							<a class="btn btn-danger btn-sm excluir" 
-							href="usuario-exclui.php?=<?=$usuario['id']?>">
+							href="usuario-exclui.php?id=<?=$usuario['id']?>">
 								Excluir
 							</a>
 						</td>
