@@ -4,7 +4,7 @@
 <footer class="footer bg-light border-top">
   <div class="container text-center">
     <span class="text-muted">
-        Microblog é um site fictício desenvolvido para fins didáticos | Senac Penha &copy; 2022
+        Microblog é um site fictício | Desenvolvido por Izabelle Santos do Nascimento | Senac Penha &copy; 2022
     </span>
   </div>
 </footer>

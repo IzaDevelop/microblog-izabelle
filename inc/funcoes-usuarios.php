@@ -52,7 +52,16 @@ function lerUmUsuario(mysqli $conexao, int $id):array{
 
 
 // Função verificaSenha: usada em usuario-atualiza.php
-
+function verificaSenha(string $senhaFormulario, string $senhaBanco){
+    // usamos a password_verify() para comparar as duas senhas: a senha digitada no formulário e a existente no banco de dados
+    if(password_verify($senhaFormulario, $senhaBanco)){
+        // se elas forem iguais então significa que o usuário não mudou, portanto mantemos a senha já existente no banco
+        return $senhaBanco;
+    } else {
+        // mas se forem diferentes, então pegamos a senha do formulário e a codificamos antes de enviar para o banco
+        return codificaSenha($senhaFormulario);
+    }
+}
 // fim verificaSenha
 
 
