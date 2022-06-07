@@ -3,7 +3,7 @@ require "conecta.php";
 
 /* Usada em post-insere.php */
 function inserirPost(mysqli $conexao, string $titulo, string $texto, string $resumo, string $imagem, int $idUsuarioLogado){
-    $sql = "SELECT INTO posts(titulo, texto, resumo, imagem, usuario_id) VALUES('$titulo', '$texto', '$resumo', '$imagem', $idUsuarioLogado)";
+    $sql = "INSERT INTO posts(titulo, texto, resumo, imagem, usuario_id) VALUES('$titulo', '$texto', '$resumo', '$imagem', $idUsuarioLogado)";
     
     mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 } // fim inserirPost
@@ -54,8 +54,29 @@ function excluirPost(mysqli $conexao){
 /* Funções utilitárias */
 
 /* Usada em post-insere.php e post-atualiza.php */
-function upload(){
-    
+function upload($arquivo){
+    // definir os tipos de imagens aceitas
+    $tiposValidos = ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'];
+
+    // verificando se o arquivo enviado NÃO É um dos aceitos
+    if(!in_array($arquivo['type'], $tiposValidos)){
+        die("<script> alert('Formato inválido!'); history.back(); </script>");
+    }
+
+    // acessando apenas o nome do arquivo
+    $nome = $arquivo['name']; //$_FILES['arquivo']['name'];
+
+    // acessando dados de acesso temporario ao arquivo
+    $temporario = $arquivo['tmp_name'];
+
+    // pasta de destino do arquivo que está sendo enviado
+    $destino = "../imagens/$nome";
+
+    // se o processo de envio temporario para destino for feito com sucesso, então a função retorna verdadeiro (indicando sucesso no processo)
+    if(move_uploaded_file($temporario, $destino)){
+        return true;
+    }
+
 } // fim upload
 
 
