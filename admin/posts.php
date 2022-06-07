@@ -34,12 +34,12 @@ $quantidade = count($posts);
               <td> <?= $post['data'] ?> </td>
               <?php if ($_SESSION['tipo'] == 'admin') { ?><td> <?= $post['autor'] ?> </td><?php } ?>
               <td class="text-center">
-                <a class="btn btn-warning btn-sm" href="post-atualiza.php">
+                <a class="btn btn-warning btn-sm" href="post-atualiza.php?id=<?=$post['id']?>">
                   Atualizar
                 </a>
               </td>
               <td class="text-center">
-                <a class="btn btn-danger btn-sm excluir" href="post-exclui.php">
+                <a class="btn btn-danger btn-sm excluir" href="post-exclui.php?id=<?=$post['id']?>">
                   Excluir
                 </a>
               </td>
