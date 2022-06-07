@@ -2,17 +2,19 @@
 require "conecta.php";
 
 // Função inserirUsuario: usada em usuario-insere.php
-function inserirUsuario(mysqli $conexao, string $nome, string $email, string $senha, string $tipo){
+function inserirUsuario(mysqli $conexao, string $nome, string $email, string $senha, string $tipo)
+{
     $sql = "INSERT INTO usuarios(nome, email, senha, tipo)
             VALUES('$nome', '$email', '$senha', '$tipo')";
-    mysqli_query($conexao, $sql) or die(mysqli_error($conexao));     
+    mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 }
 // fim inserirUsuario
 
 
 
 // Função codificaSenha: usada em usuario-insere.php e usuario-atualiza.php
-function codificaSenha(string $senha):string{
+function codificaSenha(string $senha): string
+{
     return password_hash($senha, PASSWORD_DEFAULT);
 }
 // fim codificaSenha
@@ -20,11 +22,12 @@ function codificaSenha(string $senha):string{
 
 
 // Função lerUsuarios: usada em usuarios.php
-function lerUsuarios(mysqli $conexao):array{
+function lerUsuarios(mysqli $conexao): array
+{
     $sql = "SELECT id, nome, email, tipo FROM usuarios ORDER BY nome";
     $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
     $usuarios = [];
-    while($usuario = mysqli_fetch_assoc($resultado)){
+    while ($usuario = mysqli_fetch_assoc($resultado)) {
         array_push($usuarios, $usuario);
     }
     return $usuarios;
@@ -34,7 +37,8 @@ function lerUsuarios(mysqli $conexao):array{
 
 
 // Função excluirUsuario: usada em usuario-exclui.php
-function excluirUsuario($conexao, $id){
+function excluirUsuario($conexao, $id)
+{
     $sql = "DELETE FROM usuarios WHERE id = $id";
     mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 }
@@ -43,7 +47,8 @@ function excluirUsuario($conexao, $id){
 
 
 // Função lerUmUsuario: usada em usuario-atualiza.php
-function lerUmUsuario(mysqli $conexao, int $id):array{
+function lerUmUsuario(mysqli $conexao, int $id): array
+{
     $sql = "SELECT id, nome, email, senha, tipo FROM usuarios WHERE id = $id";
     $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
     return mysqli_fetch_assoc($resultado);
@@ -52,9 +57,10 @@ function lerUmUsuario(mysqli $conexao, int $id):array{
 
 
 // Função verificaSenha: usada em usuario-atualiza.php
-function verificaSenha(string $senhaFormulario, string $senhaBanco){
+function verificaSenha(string $senhaFormulario, string $senhaBanco)
+{
     // usamos a password_verify() para comparar as duas senhas: a senha digitada no formulário e a existente no banco de dados
-    if(password_verify($senhaFormulario, $senhaBanco)){
+    if (password_verify($senhaFormulario, $senhaBanco)) {
         // se elas forem iguais então significa que o usuário não mudou, portanto mantemos a senha já existente no banco
         return $senhaBanco;
     } else {
@@ -67,7 +73,8 @@ function verificaSenha(string $senhaFormulario, string $senhaBanco){
 
 
 // Função atualizarUsuario: usada em usuario-atualiza.php
-function atualizarUsuario(mysqli $conexao, int $id, string $nome, string $email, string $senha, string $tipo){
+function atualizarUsuario(mysqli $conexao, int $id, string $nome, string $email, string $senha, string $tipo)
+{
     $sql = "UPDATE usuarios SET nome = '$nome', email = '$email', senha = '$senha', tipo = '$tipo' WHERE id = $id";
     mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 }
@@ -76,7 +83,8 @@ function atualizarUsuario(mysqli $conexao, int $id, string $nome, string $email,
 
 
 // Função buscarUsuario: usada em login.php
-function buscarUsuario(mysqli $conexao, string $email){
+function buscarUsuario(mysqli $conexao, string $email)
+{
     $sql = "SELECT id, nome, email, senha, tipo FROM usuarios WHERE email = '$email'";
     $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
     return mysqli_fetch_assoc($resultado);

@@ -4,7 +4,7 @@ require "../inc/cabecalho-admin.php";
 verificaAcessoAdmin();
 
 $usuarios = lerUsuarios($conexao);
-$quantidade = count($usuarios)
+$quantidade = count($usuarios);
 // var_dump($usuarios);
 ?>
 <div class="row">

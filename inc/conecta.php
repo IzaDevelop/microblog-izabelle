@@ -1,8 +1,8 @@
 <?php
-$servidor = "localhost"; 
-$usuario = "root";	
-$senha = ""; 
-$banco = "progweb_microblog_izabelle"; 
+$servidor = "localhost";
+$usuario = "root";
+$senha = "";
+$banco = "progweb_microblog_izabelle";
 
 $conexao = mysqli_connect($servidor, $usuario, $senha, $banco);
 

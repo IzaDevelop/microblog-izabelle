@@ -1,9 +1,9 @@
-<?php 
+<?php
 require "../inc/funcoes-usuarios.php";
-require "../inc/cabecalho-admin.php"; 
+require "../inc/cabecalho-admin.php";
 verificaAcessoAdmin();
 
-if(isset($_POST['inserir'])){
+if (isset($_POST['inserir'])) {
 	$nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
 	$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
 	$senha = codificaSenha($_POST['senha']);
@@ -12,12 +12,12 @@ if(isset($_POST['inserir'])){
 	inserirUsuario($conexao, $nome, $email, $senha, $tipo);
 	header("location:usuarios.php");
 }
-?> 
-       
+?>
+
 <div class="row">
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 		<h2 class="text-center">Inserir Usuário</h2>
-		
+
 		<form class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir">
 
 			<div class="form-group">
@@ -43,10 +43,10 @@ if(isset($_POST['inserir'])){
 					<option value="admin">Administrador</option>
 				</select>
 			</div>
-			
+
 			<button class="btn btn-primary" id="inserir" name="inserir">Inserir usuário</button>
 		</form>
-			
+
 	</article>
 </div>
 
