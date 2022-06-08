@@ -40,10 +40,15 @@ function lerPosts(
 
 
 /* Usada em post-atualiza.php */
-function lerUmPost(mysqli $conexao): array
+function lerUmPost(mysqli $conexao, int $idPost, int $idUsuarioLogado, string $tipoUsuarioLogado): array
 {
-    $sql = "";
-
+    // se o usuário logado for admin, então pode carregar os dados de qualquer post de qualquer usuário
+    if($tipoUsuarioLogado == 'admin') {
+        $sql = "SELECT titulo, texto, resumo, imagem, usuario_id FROM posts WHERE id =  $idPost";
+    } else {
+    // senão, significa que é um usuário editor, portanto só poderá carrgar os dados de seus proprios posts
+        $sql = "SELECT titulo, texto, resumo, imagem, usuario_id FROM posts WHERE id =  $idPost AND usuario_id = $idUsuarioLogado";
+    }
     $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
     return mysqli_fetch_assoc($resultado);
 } // fim lerUmPost
@@ -51,9 +56,14 @@ function lerUmPost(mysqli $conexao): array
 
 
 /* Usada em post-atualiza.php */
-function atualizarPost(mysqli $conexao)
+function atualizarPost(mysqli $conexao, int $idPost, int $idUsuarioLogado, string $tipoUsuarioLogado, string $titulo, string $texto, string $resumo, string $imagem)
 {
-    $sql = "";
+    if($tipoUsuarioLogado == 'admin'){
+        $sql = "UPDATE posts SET titulo = '$titulo', texto = '$texto', resumo = '$resumo', imagem = '$imagem' WHERE id = $idPost";
+    } else {
+        $sql = "UPDATE posts SET titulo = '$titulo', texto = '$texto', resumo = '$resumo', imagem = '$imagem' WHERE id = $idPost AND usuario_id = $idUsuarioLogado";
+    }
+    
 
     mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 } // fim atualizarPost
@@ -61,9 +71,9 @@ function atualizarPost(mysqli $conexao)
 
 
 /* Usada em post-exclui.php */
-function excluirPost(mysqli $conexao)
+function excluirPost(mysqli $conexao, int $idPost)
 {
-    $sql = "";
+    $sql = "DELETE FROM posts WHERE id = $idPost";
 
     mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 } // fim excluirPost
@@ -73,7 +83,7 @@ function excluirPost(mysqli $conexao)
 /* Funções utilitárias */
 
 /* Usada em post-insere.php e post-atualiza.php */
-function upload($arquivo)
+function upload(array $arquivo)
 {
     // definir os tipos de imagens aceitas
     $tiposValidos = ['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'];
@@ -101,8 +111,10 @@ function upload($arquivo)
 
 
 /* Usada em posts.php e páginas da área pública */
-function formataData()
+function formataData(string $data):string
 {
+    // pegamos a data informada, transformamos em texto (strtotime) e depois aplicamos o formato brasileiro (dia/mes/ANO)
+    return date('d/m/Y H:i', strtotime($data));
 } // fim formataData
 
 

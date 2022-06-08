@@ -31,7 +31,7 @@ $quantidade = count($posts);
           ?>
             <tr>
               <td> <?= $post['titulo'] ?> </td>
-              <td> <?= $post['data'] ?> </td>
+              <td> <?= formataData($post['data']) ?> </td>
               <?php if ($_SESSION['tipo'] == 'admin') { ?><td> <?= $post['autor'] ?> </td><?php } ?>
               <td class="text-center">
                 <a class="btn btn-warning btn-sm" href="post-atualiza.php?id=<?=$post['id']?>">
