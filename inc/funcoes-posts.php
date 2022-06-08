@@ -71,9 +71,13 @@ function atualizarPost(mysqli $conexao, int $idPost, int $idUsuarioLogado, strin
 
 
 /* Usada em post-exclui.php */
-function excluirPost(mysqli $conexao, int $idPost)
+function excluirPost(mysqli $conexao, int $idPost, int $idUsuarioLogado, string $tipoUsuarioLogado)
 {
-    $sql = "DELETE FROM posts WHERE id = $idPost";
+    if ($tipoUsuarioLogado == 'admin') {
+        $sql = "DELETE FROM posts WHERE id = $idPost";
+    } else {
+        $sql = "DELETE FROM posts WHERE id = $idPost AND usuario_id = $idUsuarioLogado";
+    }
 
     mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 } // fim excluirPost
