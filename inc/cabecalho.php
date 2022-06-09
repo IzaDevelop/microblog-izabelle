@@ -20,7 +20,7 @@
           <a class="navbar-brand" href="index.php">Microblog</a>
         </h1>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation>
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -37,7 +37,7 @@
           </ul>
 
           <form class="form-inline my-2 my-lg-0" action="search.php" method="get">
-            <input class="form-control mr-sm-2" type="search" placeholder="Pesquise aqui" aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" placeholder="Pesquise aqui" aria-label="Search" name="q">
             <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">OK</button>
           </form>
 
